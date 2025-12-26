@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-12+-blue.svg)](https://www.postgresql.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![GitHub Stars](https://img.shields.io/github/stars/seu-usuario/aprenda-sql-postgres?style=social)](https://github.com/seu-usuario/aprenda-sql-postgres)
+[![GitHub Stars](https://img.shields.io/github/stars/afborda/aprenda-sql-postgres?style=social)](https://github.com/afborda/aprenda-sql-postgres)
 
 ---
 
