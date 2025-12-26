@@ -377,3 +377,38 @@ Se ficar preso:
 ---
 
 Bom estudo! 🚀📚
+
+---
+
+## 🌐 Acesso Público ao Banco (Neon)
+
+Para praticar sem instalar nada, conecte ao banco público READ-ONLY:
+
+- Host: ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech
+- Database: neondb
+- User: aluno_readonly
+- Password: AprendaSQL2025!
+- Port: 5432
+- SSL: required
+
+### psql (terminal)
+```bash
+psql "postgresql://aluno_readonly:AprendaSQL2025!@ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require"
+```
+
+### DBeaver / Postico / TablePlus
+- Protocol: PostgreSQL
+- SSL: require
+- Credenciais conforme acima
+
+### Tabelas disponíveis
+- `users` (10 registros)
+- `transactions` (10)
+- `posts` (10)
+- `comments` (11)
+- `fraud_data` (6)
+- `user_accounts` (10)
+
+Este usuário é somente leitura: não permite INSERT/UPDATE/DELETE/TRUNCATE.
+
+Se algo sair do ar, recriamos os dados via `Banco.sql`.
