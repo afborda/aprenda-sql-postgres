@@ -1,5 +1,7 @@
 # Fase 4: Agregações e Resumos 📈
 
+![Fase 4 - Agregações](../../assets/img.png)
+
 ## Visão Geral
 
 A quarta fase ensina como **resumir e analisar dados em massa** usando agregações. Você aprenderá funções como COUNT, SUM, AVG, GROUP BY e HAVING para criar relatórios executivos.
