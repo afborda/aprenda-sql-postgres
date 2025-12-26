@@ -412,3 +412,20 @@ psql "postgresql://aluno_readonly:AprendaSQL2025!@ep-odd-dream-ah5ij0pt-pooler.c
 Este usuário é somente leitura: não permite INSERT/UPDATE/DELETE/TRUNCATE.
 
 Se algo sair do ar, recriamos os dados via `Banco.sql`.
+
+### Dataset ampliado (público)
+Em 26/12/2025 ampliamos o dataset do banco público com ~100 registros adicionais para cada entidade principal.
+
+- users: 110
+- transactions: 110
+- posts: 110
+- comments: 111
+- fraud_data: 56
+- user_accounts: 110
+
+Como foi gerado:
+- Script idempotente: `scripts/seed_extra_100.sql`
+- Usa `generate_series`, arrays de cidades/estados e guardas `ON CONFLICT`/`NOT EXISTS`
+- Pode ser reexecutado sem duplicar dados
+
+Para contribuir com mais dados, abra uma Issue ou PR sugerindo novos seeds.
