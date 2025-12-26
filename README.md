@@ -1,4 +1,6 @@
-# � aprenda-sql-postgres
+# aprenda-sql-postgres
+
+![Aprenda SQL Postgres](assets/img.png)
 
 > Aprenda PostgreSQL do zero ao sênior com exercícios práticos, desafios contextualizados e dados reais de fintech brasileira
 
