@@ -101,7 +101,8 @@ INSERT INTO users (username, email, full_name, cpf, phone, address, city, state,
 ('felipe_rocha', 'felipe.rocha@email.com', 'Felipe Rocha Barbosa', '789.012.345-66', '(61) 97654-8901', 'Rua G, 700', 'Brasília', 'DF', '70000-000'),
 ('beatriz_castro', 'beatriz.castro@email.com', 'Beatriz Castro Lima', '890.123.456-77', '(71) 98901-2345', 'Avenida H, 800', 'Salvador', 'BA', '40000-000'),
 ('rafael_dias', 'rafael.dias@email.com', 'Rafael Dias Cardoso', '901.234.567-88', '(81) 99234-5678', 'Rua I, 900', 'Recife', 'PE', '50000-000'),
-('isabela_nunes', 'isabela.nunes@email.com', 'Isabela Nunes Ribeiro', '012.345.678-99', '(47) 98765-4321', 'Avenida J, 1000', 'Joinville', 'SC', '89000-000');
+('isabela_nunes', 'isabela.nunes@email.com', 'Isabela Nunes Ribeiro', '012.345.678-99', '(47) 98765-4321', 'Avenida J, 1000', 'Joinville', 'SC', '89000-000')
+ON CONFLICT DO NOTHING;
 
 -- Inserir posts
 INSERT INTO posts (user_id, title, content, views, likes) VALUES
@@ -141,7 +142,8 @@ INSERT INTO user_accounts (user_id, account_type, account_number, account_holder
 (4, 'credit_card', '6011111111111117', 'Ana Pereira Mendes', '1117', 4100.00, 10000.00, TRUE),
 (5, 'debit_card', '001-456789-4', 'Pedro Gomes Alves', '1234', 12500.00, NULL, TRUE),
 (6, 'credit_card', '3714496353622522', 'Lúcia Martins da Silva', '2522', 2900.00, 6000.00, TRUE),
-(7, 'bank_account', '001-567890-5', 'Felipe Rocha Barbosa', NULL, 18000.00, NULL, TRUE);
+(7, 'bank_account', '001-567890-5', 'Felipe Rocha Barbosa', NULL, 18000.00, NULL, TRUE)
+ON CONFLICT (account_number) DO NOTHING;
 
 -- Inserir transações
 INSERT INTO transactions (user_id, amount, transaction_type, merchant, payment_method, location_city, location_state, ip_address, device_type, status) VALUES
@@ -169,30 +171,57 @@ INSERT INTO fraud_data (transaction_id, user_id, fraud_type, fraud_score, is_fra
 -- ÍNDICES PARA MELHOR PERFORMANCE
 -- ============================================
 
-CREATE INDEX idx_users_email ON users(email);
-CREATE INDEX idx_users_cpf ON users(cpf);
-CREATE INDEX idx_posts_user_id ON posts(user_id);
-CREATE INDEX idx_posts_created_at ON posts(created_at);
-CREATE INDEX idx_comments_post_id ON comments(post_id);
-CREATE INDEX idx_comments_user_id ON comments(user_id);
-CREATE INDEX idx_transactions_user_id ON transactions(user_id);
-CREATE INDEX idx_transactions_created_at ON transactions(created_at);
-CREATE INDEX idx_transactions_status ON transactions(status);
-CREATE INDEX idx_fraud_data_user_id ON fraud_data(user_id);
-CREATE INDEX idx_fraud_data_is_fraud ON fraud_data(is_fraud);
-CREATE INDEX idx_fraud_data_status ON fraud_data(status);
-CREATE INDEX idx_user_accounts_user_id ON user_accounts(user_id);
-CREATE INDEX idx_user_accounts_is_active ON user_accounts(is_active);
+CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+CREATE INDEX IF NOT EXISTS idx_users_cpf ON users(cpf);
+CREATE INDEX IF NOT EXISTS idx_posts_user_id ON posts(user_id);
+CREATE INDEX IF NOT EXISTS idx_posts_created_at ON posts(created_at);
+CREATE INDEX IF NOT EXISTS idx_comments_post_id ON comments(post_id);
+CREATE INDEX IF NOT EXISTS idx_comments_user_id ON comments(user_id);
+CREATE INDEX IF NOT EXISTS idx_transactions_user_id ON transactions(user_id);
+CREATE INDEX IF NOT EXISTS idx_transactions_created_at ON transactions(created_at);
+CREATE INDEX IF NOT EXISTS idx_transactions_status ON transactions(status);
+CREATE INDEX IF NOT EXISTS idx_fraud_data_user_id ON fraud_data(user_id);
+CREATE INDEX IF NOT EXISTS idx_fraud_data_is_fraud ON fraud_data(is_fraud);
+CREATE INDEX IF NOT EXISTS idx_fraud_data_status ON fraud_data(status);
+CREATE INDEX IF NOT EXISTS idx_user_accounts_user_id ON user_accounts(user_id);
+CREATE INDEX IF NOT EXISTS idx_user_accounts_is_active ON user_accounts(is_active);
 
 -- ============================================
 -- CONSTRAINTS ADICIONAIS
 -- ============================================
 
-ALTER TABLE transactions ADD CONSTRAINT chk_amount_positive CHECK (amount > 0);
-ALTER TABLE user_accounts ADD CONSTRAINT chk_balance_non_negative CHECK (balance >= 0);
-ALTER TABLE transactions ADD CONSTRAINT chk_amount_positive CHECK (amount > 0);
-ALTER TABLE user_accounts ADD CONSTRAINT chk_balance_non_negative CHECK (balance >= 0);
-ALTER TABLE fraud_data ADD CONSTRAINT chk_fraud_score CHECK (fraud_score >= 0.00 AND fraud_score <= 1.00);
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint
+        WHERE conname = 'chk_amount_positive'
+          AND conrelid = 'transactions'::regclass
+    ) THEN
+        ALTER TABLE transactions ADD CONSTRAINT chk_amount_positive CHECK (amount > 0);
+    END IF;
+END $$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint
+        WHERE conname = 'chk_balance_non_negative'
+          AND conrelid = 'user_accounts'::regclass
+    ) THEN
+        ALTER TABLE user_accounts ADD CONSTRAINT chk_balance_non_negative CHECK (balance >= 0);
+    END IF;
+END $$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint
+        WHERE conname = 'chk_fraud_score'
+          AND conrelid = 'fraud_data'::regclass
+    ) THEN
+        ALTER TABLE fraud_data ADD CONSTRAINT chk_fraud_score CHECK (fraud_score >= 0.00 AND fraud_score <= 1.00);
+    END IF;
+END $$;
 
 
 

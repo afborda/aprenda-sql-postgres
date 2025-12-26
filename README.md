@@ -25,12 +25,14 @@
 
 | Fase | Tópicos | Dificuldade | Status |
 |------|---------|-------------|--------|
-| **1-2** | Fundamentos, LIKE, CASE WHEN | ⭐ Básico | ✅ Completo |
-| **3-4** | JOINs, Subconsultas | ⭐⭐ Intermediário | 🚧 Em breve |
-| **5-6** | Agregações, Window Functions | ⭐⭐⭐ Intermediário+ | 📅 Planejado |
-| **7-8** | CTEs, Views, Índices | ⭐⭐⭐⭐ Avançado | 📅 Planejado |
-| **9-10** | Triggers, Procedures, Performance | ⭐⭐⭐⭐ Avançado+ | 📅 Planejado |
-| **11-12** | Otimização, Particionamento, Big Data | ⭐⭐⭐⭐⭐ Expert | 📅 Planejado |
+| **1** | SELECT, WHERE, ORDER BY, LIMIT | ⭐ Básico | ✅ Completo |
+| **2** | LIKE, IN, BETWEEN, Funções String/Data | ⭐ Básico | ✅ Completo |
+| **3** | INNER JOIN, LEFT JOIN, Múltiplos JOINs | ⭐⭐ Intermediário | ✅ Completo |
+| **4** | GROUP BY, HAVING, Agregações, Relatórios | ⭐⭐ Intermediário | ✅ Completo |
+| **5-6** | CTEs, Subconsultas, Window Functions | ⭐⭐⭐ Intermediário+ | 📅 Planejado |
+| **7-8** | Views, Índices, Otimização | ⭐⭐⭐⭐ Avançado | 📅 Planejado |
+| **9-10** | Triggers, Procedures, Transações | ⭐⭐⭐⭐ Avançado+ | 📅 Planejado |
+| **11-12** | Performance, Particionamento, Big Data | ⭐⭐⭐⭐⭐ Expert | 📅 Planejado |
 
 ### 🎯 Metodologia de Aprendizado
 
@@ -46,14 +48,40 @@
 
 ```
 📁 aprenda-sql-postgres/
-├── 📄 Banco.sql ..................... Banco completo com 10 usuários BR
+├── 📄 Banco.sql ..................... Banco completo com 110 usuários BR + seed
 ├── 📁 exercicios/
 │   ├── fase_01_fundamentos/ ...... SELECT, WHERE, ORDER BY (✅ completo)
-│   ├── fase_02_intermediario/ .... LIKE, IN, CASE, funções (✅ completo)
-│   └── fase_03_joins/ ............ INNER, LEFT, FULL (🚧 em breve)
+│   │   ├── pratica/ ............... 3 exercícios em branco
+│   │   ├── pratica_respondida/ ... 3 soluções comentadas
+│   │   ├── desafio/ .............. 6 desafios contextualizados
+│   │   ├── teoria/ ............... Conceitos (em breve)
+│   │   └── README.md ............. Guia completo
+│   │
+│   ├── fase_02_intermediario/ .... LIKE, IN, BETWEEN, Funções (✅ completo)
+│   │   ├── pratica/ ............... 4 exercícios em branco
+│   │   ├── pratica_respondida/ ... 4 soluções comentadas
+│   │   ├── desafio/ .............. 6 desafios contextualizados
+│   │   ├── teoria/ ............... Conceitos (em breve)
+│   │   └── README.md ............. Guia completo
+│   │
+│   ├── fase_03_joins/ ............ INNER, LEFT, Múltiplos (✅ completo)
+│   │   ├── pratica/ ............... 3 exercícios em branco
+│   │   ├── pratica_respondida/ ... 3 soluções comentadas
+│   │   ├── desafio/ .............. 6 desafios contextualizados
+│   │   ├── teoria/ ............... Conceitos (em breve)
+│   │   └── README.md ............. Guia completo
+│   │
+│   └── fase_04_agregacoes/ ....... GROUP BY, HAVING, Agregações (✅ completo)
+│       ├── pratica/ ............... 4 exercícios em branco
+│       ├── pratica_respondida/ ... 4 soluções comentadas
+│       ├── desafio/ .............. 6 desafios contextualizados
+│       ├── teoria/ ............... Conceitos (em breve)
+│       └── README.md ............. Guia completo
+│
+├── 📁 scripts/
+│   └── seed_extra_100.sql ....... Seed idempotente (+100 registros)
 ├── 📁 queries_uteis/
 │   └── por_topico/ ............... 21+ exemplos prontos para uso
-├── 📁 desafios/ .................. 26+ desafios por nível
 ├── 📁 docs/
 │   └── ROADMAP_COMPLETO.md ....... Teoria das 12 fases
 ├── 📄 QUICK_REFERENCE.sql ........ Referência rápida de SQL
@@ -64,11 +92,12 @@
 
 ### 📈 Estatísticas do Projeto
 
-- **40+ Exercícios** com soluções detalhadas
-- **26+ Desafios** contextualizados (fintech, fraud, marketing)
+- **48+ Exercícios** com soluções detalhadas (12 exercícios × 4 fases)
+- **24+ Desafios** contextualizados (6 desafios × 4 fases)
 - **21+ Queries** de exemplo prontas para usar
-- **12 Fases** progressivas (básico → expert)
-- **6 Tabelas** com dados reais brasileiros
+- **4 Fases Completas** (básico → intermediário+)
+- **110+ Registros** de dados reais brasileiros
+- **6 Tabelas** com relacionamentos complexos
 
 
 ---
@@ -125,29 +154,42 @@ cat exercicios/fase_01_fundamentos/01_select_basico.sql
 
 ---
 
-## 🎓 Estrutura de Aprendizado
+## 📂 Como Navegar o Projeto
 
-### Cada Fase tem:
+### Para Cada Fase (1, 2, 3, 4...)
 
-1. **Conceitos Teóricos** (no ROADMAP)
-   - O que é?
-   - Por que usar?
-   - Quando usar?
+Cada fase possui a seguinte estrutura:
 
-2. **Exercícios Práticos** (na pasta fase_XX)
-   - 3-5 exercícios progressivos
-   - Soluções incluídas
-   - Validações claras
+```
+fase_XX_topico/
+├── pratica/              ← Abra aqui primeiro!
+│   ├── 01_exercicio.sql   (complete os [ESCREVA AQUI])
+│   ├── 02_exercicio.sql
+│   └── ...
+│
+├── pratica_respondida/   ← Apenas se pedir ajuda
+│   ├── 01_exercicio_SOLUCAO.sql
+│   ├── 02_exercicio_SOLUCAO.sql
+│   └── ...
+│
+├── desafio/              ← Depois dos exercícios
+│   └── DESAFIOS_fase_XX.sql  (6 desafios com soluções)
+│
+├── teoria/               ← Em desenvolvimento
+│   ├── 01_conceitos.md
+│   └── ...
+│
+└── README.md             ← Leia primeiro (10 min)
+```
 
-3. **Desafios Contextualizados** (no arquivo DESAFIOS)
-   - Problemas reais de negócio
-   - Sem solução (você cria)
-   - Orientados por objetivo
+### Fluxo Recomendado
 
-4. **Exemplos de Queries** (em queries_uteis/)
-   - Código pronto para estudar
-   - Comentários explicativos
-   - Casos de uso reais
+1. **Leia o README.md** da fase (entenda os tópicos)
+2. **Abra pratica/01_exercicio.sql** (leia as instruções)
+3. **Escreva sua solução** (tente sem ajuda)
+4. **Confira pratica_respondida/** (valide seu código)
+5. **Faça os 6 desafios** em desafio/ (aplique tudo)
+6. **Avance para próxima fase**
 
 ---
 
