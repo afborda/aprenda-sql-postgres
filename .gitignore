@@ -1,0 +1,26 @@
+# PostgreSQL
+*.sql~
+*.backup
+*.dump
+
+# Arquivos pessoais
+progresso.md
+notas_pessoais.md
+meu_progresso/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporários
+temp/
+tmp/
