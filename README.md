@@ -68,7 +68,8 @@
 | **2** | LIKE, IN, BETWEEN, Funções String/Data | ⭐ Básico | ✅ Completo |
 | **3** | INNER JOIN, LEFT JOIN, Múltiplos JOINs | ⭐⭐ Intermediário | ✅ Completo |
 | **4** | GROUP BY, HAVING, Agregações, Relatórios | ⭐⭐ Intermediário | ✅ Completo |
-| **5-6** | CTEs, Subconsultas, Window Functions | ⭐⭐⭐ Intermediário+ | 📅 Planejado |
+| **5** | CTEs, Subconsultas, Window Functions | ⭐⭐⭐ Intermediário+ | ✅ Completo |
+| **6** | CTEs Avançadas, LATERAL, Window Functions | ⭐⭐⭐ Intermediário+ | ✅ Completo |
 | **7-8** | Views, Índices, Otimização | ⭐⭐⭐⭐ Avançado | 📅 Planejado |
 | **9-10** | Triggers, Procedures, Transações | ⭐⭐⭐⭐ Avançado+ | 📅 Planejado |
 | **11-12** | Performance, Particionamento, Big Data | ⭐⭐⭐⭐⭐ Expert | 📅 Planejado |
@@ -116,6 +117,21 @@
 │       ├── desafio/ .............. 6 desafios contextualizados
 │       ├── teoria/ ............... Conceitos (em breve)
 │       └── README.md ............. Guia completo
+│
+│   ├── fase_05_ctes_subconsultas_windows/ ... CTEs, Subconsultas, Windows (✅ completo)
+│   │   ├── pratica/ ............... 6 exercícios
+│   │   ├── pratica_respondida/ ... 6 soluções
+│   │   ├── teoria/ ............... Conceitos
+│   │   └── README.md ............. Guia completo
+│
+│   ├── fase_06_advanced_ctes_windows/ ....... CTEs Avançadas, LATERAL (✅ completo)
+│   │   ├── pratica/ ............... 6 exercícios
+│   │   ├── pratica_respondida/ ... 6 soluções
+│   │   ├── teoria/ ............... Conceitos
+│   │   └── README.md ............. Guia completo
+│
+│   📌 Fase Extra — ETL na Prática (Bronze → Silver → Gold)
+│   └── Veja [exercicios/fase_extra_etl](exercicios/fase_extra_etl)
 │
 ├── 📁 scripts/
 │   └── seed_extra_100.sql ....... Seed idempotente (+100 registros)
