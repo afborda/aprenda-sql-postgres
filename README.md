@@ -1,628 +1,442 @@
-# aprenda-sql-postgres
+# 📚 Aprenda SQL PostgreSQL — Do Zero ao Sênior
 
 ![Aprenda SQL Postgres](assets/img.png)
 
-> Aprenda PostgreSQL do zero ao sênior com exercícios práticos, desafios contextualizados e dados reais de fintech brasileira
+> **Aprenda PostgreSQL do zero ao sênior com exercícios práticos, desafios contextualizados e dados reais de fintech brasileira**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-12+-blue.svg)](https://www.postgresql.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![GitHub Stars](https://img.shields.io/github/stars/afborda/aprenda-sql-postgres?style=social)](https://github.com/afborda/aprenda-sql-postgres)
 
-## Índice
-- [Para Quem é Este Projeto?](#-para-quem-é-este-projeto)
-- [O Que Você Vai Aprender](#-o-que-você-vai-aprender)
-        - [12 Fases Progressivas](#-12-fases-progressivas)
-        - [Metodologia de Aprendizado](#-metodologia-de-aprendizado)
-- [Estrutura do Projeto](#-estrutura-do-projeto)
-- [Estatísticas do Projeto](#-estatísticas-do-projeto)
-- [Como Começar Hoje](#-como-começar-hoje)
-        - [Setup (5 min)](#-setup-5-min)
-        - [Primeira Aula (20 min)](#-primeira-aula-20-min)
-        - [Fazer Desafios (15 min)](#-fazer-desafios-15-min)
-- [Rotina Diária](#-rotina-diária-30-45-minutos)
-- [Como Navegar o Projeto](#-como-navegar-o-projeto)
-- [Checklist de Completude](#-checklist-de-completude)
-- [Velocidade Esperada](#-velocidade-esperada)
-- [Competências por Fase](#-competências-por-fase)
-- [Troubleshooting](#-troubleshooting)
-- [Além das Aulas](#-além-das-aulas)
-- [Rastreamento de Progresso](#-rastreamento-de-progresso)
-- [Como Contribuir](#-como-contribuir)
-- [Licença](#-licença)
-- [Apoie Este Projeto](#-apoie-este-projeto)
-- [Recursos Extras](#-recursos-extras)
-- [Dicas de Ouro](#-dicas-de-ouro)
-- [Contato e Comunidade](#-contato-e-comunidade)
-- [Próximos Passos](#-próximos-passos)
-- [Dúvidas?](#-dúvidas)
-- [Acesso Público ao Banco (Neon)](#-acesso-público-ao-banco-neon)
-        - [psql (terminal)](#psql-terminal)
-        - [DBeaver / Postico / TablePlus](#dbeaver--postico--tableplus)
-        - [Ferramentas recomendadas (GUI)](#ferramentas-recomendadas-gui)
-        - [Strings de conexão e variáveis de ambiente](#strings-de-conexão-e-variáveis-de-ambiente)
-        - [URI](#uri-copie-e-cole)
-        - [Via variáveis de ambiente (psql)](#via-variáveis-de-ambiente-psql)
-        - [Testes rápidos após conectar (psql)](#testes-rápidos-após-conectar-psql)
-        - [Dataset grande (10k+)](#dataset-grande-10k)
+---
+
+## ⚡ Começar Agora (3 Passos)
+
+### 1️⃣ Conectar ao Banco (escolha uma opção)
+
+**Opção A: DBeaver (mais fácil, recomendado)**
+- Baixe em [dbeaver.io](https://dbeaver.io)
+- Clique em `+` → `PostgreSQL`
+- Preencha:
+  - **Host:** ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech
+  - **Database:** neondb
+  - **User:** aluno_readonly
+  - **Password:** AprendaSQL2025!
+  - **SSL:** require
+- Clique em `Test Connection` e depois `Finish`
+
+**Opção B: Linha de Comando (psql)**
+```bash
+psql "postgresql://aluno_readonly:AprendaSQL2025!@ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require"
+```
+
+**Opção C: Outras ferramentas** (TablePlus, Postico, VS Code)
+- Veja seção [🔌 Conexão Detalhada](#-conexão-ao-banco-de-dados) abaixo
+
+### 2️⃣ Testar a Conexão
+```sql
+-- Cole isso no seu editor SQL:
+SELECT COUNT(*) AS usuarios FROM users;
+```
+Deve retornar: **10,000**
+
+### 3️⃣ Abrir Fase 1
+- Vá para: `exercicios/fase_01_fundamentos/`
+- Comece com: `pratica/01_select_basico.sql`
+- Tempo: 20 minutos
 
 ---
 
 ## 🎯 Para Quem é Este Projeto?
 
-✅ **Iniciantes** que querem aprender SQL do zero  
-✅ **Desenvolvedores** que precisam melhorar suas queries  
-✅ **Analistas de dados** buscando prática  
-✅ **Profissionais** migrando para PostgreSQL  
-✅ **Qualquer pessoa** que quer dominar SQL progressivamente  
+✅ **Iniciantes totais** (sem experiência com SQL)  
+✅ **Programadores** que precisam aprender SQL  
+✅ **Analistas de dados** buscando estrutura e prática  
+✅ **Profissionais** migrando de MySQL/Oracle para PostgreSQL  
+✅ **Qualquer um** que quer dominar SQL progressivamente  
 
 ---
 
-## 🚀 O Que Você Vai Aprender
+## 📊 Seu Plano de Aprendizado
 
-### 📊 12 Fases Progressivas
+### 6 Fases Completas (Básico → Intermediário+)
 
-| Fase | Tópicos | Dificuldade | Status |
-|------|---------|-------------|--------|
-| **1** | SELECT, WHERE, ORDER BY, LIMIT | ⭐ Básico | ✅ Completo |
-| **2** | LIKE, IN, BETWEEN, Funções String/Data | ⭐ Básico | ✅ Completo |
-| **3** | INNER JOIN, LEFT JOIN, Múltiplos JOINs | ⭐⭐ Intermediário | ✅ Completo |
-| **4** | GROUP BY, HAVING, Agregações, Relatórios | ⭐⭐ Intermediário | ✅ Completo |
-| **5** | CTEs, Subconsultas, Window Functions | ⭐⭐⭐ Intermediário+ | ✅ Completo |
-| **6** | CTEs Avançadas, LATERAL, Window Functions | ⭐⭐⭐ Intermediário+ | ✅ Completo |
-| **7-8** | Views, Índices, Otimização | ⭐⭐⭐⭐ Avançado | 📅 Planejado |
-| **9-10** | Triggers, Procedures, Transações | ⭐⭐⭐⭐ Avançado+ | 📅 Planejado |
-| **11-12** | Performance, Particionamento, Big Data | ⭐⭐⭐⭐⭐ Expert | 📅 Planejado |
+| # | Fase | O Que Você Aprenderá | Tempo | Dificuldade |
+|---|------|---|---|---|
+| 1 | **Fundamentos** | SELECT, WHERE, ORDER BY, LIMIT | 1 semana | ⭐ Básico |
+| 2 | **Strings & Datas** | LIKE, IN, BETWEEN, Funções | 2 semanas | ⭐ Básico |
+| 3 | **JOINs** | INNER, LEFT, Múltiplos joins | 2 semanas | ⭐⭐ |
+| 4 | **Agregações** | GROUP BY, HAVING, SUM/AVG/COUNT | 2 semanas | ⭐⭐ |
+| 5 | **CTEs e Windows** | WITH, Window Functions, Ranking | 3 semanas | ⭐⭐⭐ |
+| 6 | **Avançado** | Recursão, LATERAL, Cohort Analysis | 3 semanas | ⭐⭐⭐ |
 
-### 🎯 Metodologia de Aprendizado
+**Tempo total: ~3 meses (30 min/dia)**
 
-- ✅ **Baby Steps**: Progressão gradual e natural, sem pulos
-- ✅ **Contexto Real**: Dados de fintech brasileira (CPF, PIX, fraudes)
-- ✅ **Exercícios Práticos**: 40+ exercícios com soluções detalhadas
-- ✅ **Desafios de Negócio**: Cenários reais de marketing, compliance, fraudes
-- ✅ **30 min/dia**: Aprenda sem pressa, com consistência
+### Bônus: Fase Extra — ETL na Prática
+- Bronze → Silver → Gold pipeline
+- Qualidade de dados em produção
+- **Quando:** Depois da Fase 4
 
 ---
 
-## 📂 Estrutura do Projeto
+## 📈 O Que Você Sabe Fazer ao Final
 
-```
-📁 aprenda-sql-postgres/
-├── 📄 Banco.sql ..................... Banco completo com 110 usuários BR + seed
-├── 📁 exercicios/
-│   ├── fase_01_fundamentos/ ...... SELECT, WHERE, ORDER BY (✅ completo)
-│   │   ├── pratica/ ............... 3 exercícios em branco
-│   │   ├── pratica_respondida/ ... 3 soluções comentadas
-│   │   ├── desafio/ .............. 6 desafios contextualizados
-│   │   ├── teoria/ ............... Conceitos (em breve)
-│   │   └── README.md ............. Guia completo
-│   │
-│   ├── fase_02_intermediario/ .... LIKE, IN, BETWEEN, Funções (✅ completo)
-│   │   ├── pratica/ ............... 4 exercícios em branco
-│   │   ├── pratica_respondida/ ... 4 soluções comentadas
-│   │   ├── desafio/ .............. 6 desafios contextualizados
-│   │   ├── teoria/ ............... Conceitos (em breve)
-│   │   └── README.md ............. Guia completo
-│   │
-│   ├── fase_03_joins/ ............ INNER, LEFT, Múltiplos (✅ completo)
-│   │   ├── pratica/ ............... 3 exercícios em branco
-│   │   ├── pratica_respondida/ ... 3 soluções comentadas
-│   │   ├── desafio/ .............. 6 desafios contextualizados
-│   │   ├── teoria/ ............... Conceitos (em breve)
-│   │   └── README.md ............. Guia completo
-│   │
-│   └── fase_04_agregacoes/ ....... GROUP BY, HAVING, Agregações (✅ completo)
-│       ├── pratica/ ............... 4 exercícios em branco
-│       ├── pratica_respondida/ ... 4 soluções comentadas
-│       ├── desafio/ .............. 6 desafios contextualizados
-│       ├── teoria/ ............... Conceitos (em breve)
-│       └── README.md ............. Guia completo
-│
-│   ├── fase_05_ctes_subconsultas_windows/ ... CTEs, Subconsultas, Windows (✅ completo)
-│   │   ├── pratica/ ............... 6 exercícios
-│   │   ├── pratica_respondida/ ... 6 soluções
-│   │   ├── teoria/ ............... Conceitos
-│   │   └── README.md ............. Guia completo
-│
-│   ├── fase_06_advanced_ctes_windows/ ....... CTEs Avançadas, LATERAL (✅ completo)
-│   │   ├── pratica/ ............... 6 exercícios
-│   │   ├── pratica_respondida/ ... 6 soluções
-│   │   ├── teoria/ ............... Conceitos
-│   │   └── README.md ............. Guia completo
-│
-│   📌 Fase Extra — ETL na Prática (Bronze → Silver → Gold)
-│   └── Veja [exercicios/fase_extra_etl](exercicios/fase_extra_etl)
-│
-├── 📁 scripts/
-│   └── seed_extra_100.sql ....... Seed idempotente (+100 registros)
-├── 📁 queries_uteis/
-│   └── por_topico/ ............... 21+ exemplos prontos para uso
-├── 📁 docs/
-│   └── ROADMAP_COMPLETO.md ....... Teoria das 12 fases
-├── 📄 QUICK_REFERENCE.sql ........ Referência rápida de SQL
-├── 📄 progresso.md ............... Template de tracking pessoal
-├── 📄 CONTRIBUTING.md ............ Como contribuir
-└── 📄 LICENSE .................... MIT License
+### Após Fase 1 ⭐
+```sql
+SELECT nome, email FROM users WHERE estado = 'SP' ORDER BY nome LIMIT 10;
 ```
 
-### 📈 Estatísticas do Projeto
+### Após Fase 2 ⭐
+```sql
+SELECT * FROM users 
+WHERE email LIKE '%@gmail.com' 
+  AND data_criacao >= '2024-01-01'
+```
 
-- **48+ Exercícios** com soluções detalhadas (12 exercícios × 4 fases)
-- **24+ Desafios** contextualizados (6 desafios × 4 fases)
-- **21+ Queries** de exemplo prontas para usar
-- **4 Fases Completas** (básico → intermediário+)
-- **110+ Registros** de dados reais brasileiros
-- **6 Tabelas** com relacionamentos complexos
+### Após Fase 3 ⭐⭐
+```sql
+SELECT u.nome, COUNT(t.id) AS transacoes
+FROM users u
+LEFT JOIN transactions t ON t.user_id = u.id
+GROUP BY u.id, u.nome
+```
 
+### Após Fase 4 ⭐⭐
+```sql
+SELECT estado, payment_method, SUM(amount) AS total
+FROM transactions
+WHERE status = 'completed'
+GROUP BY estado, payment_method
+HAVING SUM(amount) > 10000
+```
+
+### Após Fase 5 ⭐⭐⭐
+```sql
+WITH user_totals AS (
+  SELECT user_id, SUM(amount) as total
+  FROM transactions GROUP BY user_id
+)
+SELECT *, ROW_NUMBER() OVER (ORDER BY total DESC) as ranking
+FROM user_totals
+```
+
+### Após Fase 6 ⭐⭐⭐
+- CTEs recursivas
+- Análise de coortes
+- Médias móveis
+- Detecção de outliers com Z-score
 
 ---
 
-## 🎯 Como Começar Hoje
+## 🔌 Conexão ao Banco de Dados
 
-### 1️⃣ Setup (5 min)
+### A) DBeaver (Recomendado — Visual e Fácil)
+
+**Passo 1: Instalar**
+- Baixe em https://dbeaver.io (versão Community é grátis)
+- Instale como qualquer aplicação
+
+**Passo 2: Conectar**
+1. Abra o DBeaver
+2. Clique em `Database` → `New Database Connection`
+3. Selecione `PostgreSQL` e clique `Next`
+4. Preencha:
+   ```
+   Server Host: ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech
+   Port: 5432
+   Database: neondb
+   Username: aluno_readonly
+   Password: AprendaSQL2025!
+   ```
+5. Na aba `PostgreSQL`, marque **SSL: require**
+6. Clique em `Test Connection` (deve aparecer ✅)
+7. Clique `Finish`
+
+**Passo 3: Testar**
+- Clique duas vezes em `neondb` para expandir
+- Procure a tabela `users`
+- Clique botão direito → `SELECT Rows`
+- Deve aparecer dados
+
+### B) Postico 2 (macOS — Simples e Rápido)
+
+- Instale via App Store (US$9.99) ou em https://eggerapps.at/postico/
+- Abra e clique `+`
+- Preencha as credenciais acima
+- Conecte
+
+### C) TablePlus (Windows, macOS, Linux)
+
+- Instale em https://tableplus.com
+- Clique `+` → `PostgreSQL`
+- Preencha credenciais
+- Salve e conecte
+
+### D) VS Code (Desenvolvedor)
+
+**Passo 1: Instalar extensão**
+- Abra VS Code
+- Extensions (Ctrl+Shift+X)
+- Procure `SQLTools` + instale
+- Instale também `SQLTools PostgreSQL Driver`
+
+**Passo 2: Criar conexão**
+- Clique ícone SQLTools (esquerda)
+- Clique `+`
+- Selecione PostgreSQL
+- Preencha credenciais:
+  ```json
+  {
+    "name": "Aprenda SQL",
+    "host": "ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech",
+    "database": "neondb",
+    "username": "aluno_readonly",
+    "password": "AprendaSQL2025!",
+    "port": 5432,
+    "ssl": true
+  }
+  ```
+
+### E) Linha de Comando (psql)
+
+**Instalar psql:**
+- Windows: https://www.postgresql.org/download/windows/
+- macOS: `brew install postgresql`
+- Linux: `sudo apt install postgresql-client`
+
+**Conectar:**
 ```bash
-# 1. Crie o banco de dados
-psql -U seu_usuario -d seu_banco -f Banco.sql
-
-# 2. Verifique os dados
-SELECT COUNT(*) FROM users;  -- deve retornar 10
+psql "postgresql://aluno_readonly:AprendaSQL2025!@ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require"
 ```
 
-### 2️⃣ Primeira Aula (20 min)
-```bash
-# 1. Abra o arquivo
-cat exercicios/fase_01_fundamentos/01_select_basico.sql
-
-# 2. Resolva os exercícios
-# 3. Compare com a solução
-# 4. Avance para o próximo
-```
-
-### 3️⃣ Fazer Desafios (15 min)
-```bash
-# 1. Abra DESAFIOS_fase_01.sql
-# 2. Tente resolver SEM VER A SOLUÇÃO
-# 3. Execute e teste
-# 4. Valide os resultados
+**Testar:**
+```sql
+SELECT COUNT(*) FROM users;
+\dt  -- listar tabelas
+\q   -- sair
 ```
 
 ---
 
-## 📋 Rotina Diária (30-45 minutos)
+## 📂 Estrutura & Conteúdo
 
 ```
-15 min: Exercício prático
-        └─ Abra um arquivo da fase atual
-        └─ Tente resolver sem ajuda
-        └─ Confira a solução
-
-15 min: Desafio contextualizado
-        └─ Leia o contexto de negócio
-        └─ Tente resolver
-        └─ Valide resultados
-
-10 min: Revisão de conceitos
-        └─ Releia a teoria correspondente
-        └─ Anote dúvidas
-        └─ Consulte queries_uteis/
-```
-
----
-
-## 📂 Como Navegar o Projeto
-
-### Para Cada Fase (1, 2, 3, 4...)
-
-Cada fase possui a seguinte estrutura:
-
-```
-fase_XX_topico/
-├── pratica/              ← Abra aqui primeiro!
-│   ├── 01_exercicio.sql   (complete os [ESCREVA AQUI])
-│   ├── 02_exercicio.sql
-│   └── ...
+📁 exercicios/
+├── fase_01_fundamentos/           SELECT, WHERE, ORDER BY
+│   ├── README.md                  Comece aqui!
+│   ├── teoria/01_conceitos.md     Explicação de conceitos
+│   ├── pratica/                   3-4 exercícios para resolver
+│   ├── pratica_respondida/        3-4 soluções comentadas
+│   └── desafio/DESAFIOS_*.sql     6 desafios de negócio
 │
-├── pratica_respondida/   ← Apenas se pedir ajuda
-│   ├── 01_exercicio_SOLUCAO.sql
-│   ├── 02_exercicio_SOLUCAO.sql
-│   └── ...
+├── fase_02_intermediario/         LIKE, IN, BETWEEN, Funções
+├── fase_03_joins/                 INNER, LEFT, Múltiplos joins
+├── fase_04_agregacoes/            GROUP BY, HAVING, Agregações
+├── fase_05_ctes_subconsultas_windows/  CTEs, Window Functions
+├── fase_06_advanced_ctes_windows/ CTEs Recursivas, LATERAL
 │
-├── desafio/              ← Depois dos exercícios
-│   └── DESAFIOS_fase_XX.sql  (6 desafios com soluções)
-│
-├── teoria/               ← Em desenvolvimento
-│   ├── 01_conceitos.md
-│   └── ...
-│
-└── README.md             ← Leia primeiro (10 min)
+└── fase_extra_etl/                ETL na Prática (Bronze→Silver→Gold)
+
+📁 queries_uteis/
+├── joins_exemplos.sql             Exemplos prontos de JOIN
+├── agregacoes_exemplos.sql        SUM, COUNT, AVG, GROUP BY
+└── ... mais exemplos
+
+📄 QUICK_REFERENCE.sql             Cheat sheet rápido
+📄 progresso.md                     Rastreie seu avanço
 ```
 
-### Fluxo Recomendado
+---
 
-1. **Leia o README.md** da fase (entenda os tópicos)
-2. **Abra pratica/01_exercicio.sql** (leia as instruções)
-3. **Escreva sua solução** (tente sem ajuda)
-4. **Confira pratica_respondida/** (valide seu código)
-5. **Faça os 6 desafios** em desafio/ (aplique tudo)
-6. **Avance para próxima fase**
+## 🚀 Como Estudar
+
+### Rotina Recomendada (30 min/dia)
+
+```
+📍 15 min: Um Exercício
+   1. Abra pratica/01_select_basico.sql
+   2. Leia as instruções
+   3. Tente resolver SEM VER A SOLUÇÃO
+   4. Se travar em 5 min, veja a solução
+   5. Entenda por que funciona
+
+📍 10 min: Um Desafio
+   1. Abra desafio/DESAFIOS_fase_01.sql
+   2. Leia o contexto de negócio
+   3. Tente resolver
+   4. Compare com solução
+
+📍 5 min: Revisar
+   1. Releia um conceito da teoria
+   2. Anote dúvidas em progresso.md
+```
+
+### Semana Tipo
+
+| Dia | Exercício | Desafio | Avanço |
+|-----|-----------|---------|--------|
+| 2ª  | 01-02     | Ler 1-2 | Base   |
+| 3ª  | 03        | Fazer 3 | Prática |
+| 4ª  | Revisar   | Fazer 4 | Reforço |
+| 5ª  | 01-03     | Fazer 5 | Speed  |
+| 6ª  | 02-03     | Fazer 6 | Final  |
+| Sábado | Resumir | Revisar | Check  |
+| Domingo | Descansar |  |  |
 
 ---
 
-## ✅ Checklist de Completude
+## ✅ Checklist: Avançar Para Próxima Fase?
 
-### Antes de Avançar para a Próxima Fase
+Responda com honestidade:
 
-- [ ] Fiz TODOS os exercícios
-- [ ] Entendi CADA query
-- [ ] Resolvi TODOS os desafios
-- [ ] Consigo resolver em < 10 minutos
-- [ ] Taxa de acerto >= 90%
-- [ ] Revisei a teoria
+- [ ] Consegui fazer TODOS os exercícios da fase?
+- [ ] Entendi a LÓGICA de cada solução (não só copiar)?
+- [ ] Consegui fazer 5+ desafios SEM ver a resposta?
+- [ ] Consigo explicar um exercício para um amigo?
+- [ ] Levei menos de 10 min para resolver exercícios antigos?
 
----
-
-## 📊 Velocidade Esperada
-
-| Fase | Exercícios | Desafios | Tempo/dia | Dias | Total |
-|------|-----------|----------|-----------|------|-------|
-| 1    | 3         | 6        | 30 min    | 7    | 3.5h  |
-| 2    | 5         | 8        | 30 min    | 10   | 5h    |
-| 3    | 5         | 8        | 30 min    | 10   | 5h    |
-| 4    | 5         | 8        | 45 min    | 14   | 10.5h |
-
-**Total Fases 1-4: ~24 horas** (1 mês em 30 min/dia)
+**Se < 4 sim:** Revise antes de avançar  
+**Se 4-5 sim:** Parabéns! Próxima fase 🚀
 
 ---
 
-## 🎯 Competências por Fase
+## 📊 Dados do Projeto
 
-### Fase 1: Fundamentos ⭐
-Você saberá:
-- [ ] Escrever SELECT
-- [ ] Filtrar com WHERE
-- [ ] Ordenar com ORDER BY
+**10k+ registros reais de fintech brasileira:**
 
-### Fase 2: Intermediário ⭐⭐
-Você saberá:
-- [ ] Pattern matching (LIKE)
-- [ ] Funções (string, data)
-- [ ] CASE WHEN
+- **10,000 usuários** com CPF, email, endereço, estado
+- **80,000 transações** com valor, data, método de pagamento
+- **2,000 fraudes** com score de risco
+- **15,000 posts** (redes sociais)
+- **37,000 comentários**
+- **10,000 contas bancárias**
 
-### Fase 3: JOINs ⭐⭐
-Você saberá:
-- [ ] INNER JOIN
-- [ ] LEFT JOIN
-- [ ] Múltiplos JOINs
-
-### Fase 4: Agregação ⭐⭐
-Você saberá:
-- [ ] GROUP BY
-- [ ] COUNT, SUM, AVG
-- [ ] HAVING
+Todos gerados com **Faker pt_BR** para máxima autenticidade.
 
 ---
 
-## 🐛 Troubleshooting
+## 🐛 Se Ficar Preso
 
-### Problema: "Esqueci a sintaxe de SELECT"
-**Solução:** Abra `queries_uteis/` e veja exemplos
+### "Não entendi a sintaxe"
+→ Procure em `queries_uteis/` ou `QUICK_REFERENCE.sql`
 
-### Problema: "Não consigo resolver um desafio"
-**Solução:** 
-1. Releia o enunciado
-2. Veja exemplos similares
-3. Tente uma query mais simples primeiro
-4. Construa incrementalmente
+### "Não consigo resolver um desafio"
+1. Releia o enunciado com atenção
+2. Divida em partes menores
+3. Comece com um `SELECT *` simples
+4. Adicione `WHERE`, depois `GROUP BY`, etc.
+5. Se ainda travar, durma e tente amanhã 😴
 
-### Problema: "Minha query está lenta"
-**Solução:** Isso será tratado na Fase 7 (Performance)
-Por enquanto: `LIMIT 100` para testar
+### "Minha query está muito lenta"
+→ Normal para iniciantes! Fase 7-8 cobre performance  
+→ Por enquanto, use `LIMIT 100` para testar
 
-### Problema: "Consigo resolver mas demorando muito"
-**Solução:** Normal! A velocidade vem com prática
-Meta: 30 min/dia × 30 dias = fluidez
-
----
-
-## 🚀 Além das Aulas
-
-### Praticar Diariamente
-- Comece pelo menos 1 exercício por dia
-- Incremente para 2-3 quando ficar confortável
-- Faça revisões semanais
-
-### Explorar Dados Reais
-Depois de cada fase, faça perguntas sobre SEU banco:
-- "Quantos usuários temos por estado?"
-- "Qual é o valor médio de transação?"
-- "Quem é o usuário mais ativo?"
-
-### Rever Conceitos
-Toda semana:
-1. Pegue um exercício antigo
-2. Resolva novamente SEM VER A SOLUÇÃO
-3. Medía o tempo
-4. Note se melhorou
+### "Acho muito fácil/muito difícil"
+→ Cada pessoa aprende no seu ritmo!  
+→ Mais rápido? Pule para desafios  
+→ Muito difícil? Revise fase anterior
 
 ---
 
-## 📈 Rastreamento de Progresso
+## 📈 Progressão Esperada
 
-**Arquivo:** `progresso.md`
-
-Atualize semanalmente:
-- [ ] Quantos exercícios completou?
-- [ ] Qual era sua velocidade?
-- [ ] Qual foi sua taxa de acerto?
-- [ ] O que foi fácil/difícil?
+| Semana | Meta | Conquista |
+|--------|------|-----------|
+| 1-2 | Fase 1 | Escrevo meu primeiro SELECT ✅ |
+| 3-4 | Fase 2 | Filtro dados como um pro 🎯 |
+| 5-6 | Fase 3 | Faço JOINs sem medo 💪 |
+| 7-8 | Fase 4 | Agrego dados para gráficos 📊 |
+| 9-11 | Fase 5 | Window functions me fazem feliz 😊 |
+| 12-14 | Fase 6 | Sou desenvolvedor SQL! 🚀 |
 
 ---
 
-## 🤝 Como Contribuir
+## 🎁 Bônus: Fase Extra — ETL
 
-Este projeto é **open source** e aceita contribuições! 
+Depois que terminar Fase 4, você pode começar a **Fase Extra** (ETL na Prática):
 
-- 🐛 **Encontrou um erro?** Abra uma [Issue](../../issues/new)
-- ✨ **Tem uma ideia?** Sugira melhorias
-- 📝 **Quer adicionar conteúdo?** Envie um Pull Request
+- Limpar dados "sujos"
+- Criar camadas Silver (dados limpos)
+- Modelar camadas Gold para BI
+- Usar window functions para deduplicar
 
-Leia o [CONTRIBUTING.md](CONTRIBUTING.md) para mais detalhes.
+Veja: `exercicios/fase_extra_etl/README.md`
+
+---
+
+## 💡 Dicas Valiosas
+
+### Para Aprender Mais Rápido
+- ✏️ Escreva comentários em CADA query explicando o que faz
+- 👀 Leia soluções de outras pessoas
+- 🔄 Refaça exercícios antigos SEM VER respostas
+- 📝 Mantenha um "diário" de sintaxe que aprendeu
+
+### Para Não Desanimar
+- ✅ Complete UM exercício por dia = vitória!
+- 📊 Veja seu progresso em `progresso.md`
+- 🎉 Quando resolve desafio difícil, COMEMORE!
+- 👥 Mostre pros amigos o que aprendeu
+
+### Mindset Certo
+- SQL é **lógica**, não mágica
+- Erros são OK! Todo dev faz query errada
+- Começar é mais importante que ser perfeito
+- Consistência (30 min/dia) > intensidade (8h fim de semana)
+
+---
+
+## 🤝 Comunidade & Contribuição
+
+- 💬 Dúvidas? Abra [Issue](../../issues)
+- 🐛 Encontrou erro? Reporte
+- ✨ Tem ideia? Sugira!
+- 📝 Quer contribuir? PR bem-vindo
+
+Leia [CONTRIBUTING.md](CONTRIBUTING.md)
+
+---
+
+## 📞 Precisa de Ajuda?
+
+1. **Dúvida sobre SQL?** Procure em `QUICK_REFERENCE.sql`
+2. **Exemplo de JOIN?** Veja `queries_uteis/joins_exemplos.sql`
+3. **Travou em exercício?** Leia `pratica_respondida/`
+4. **Conexão não funciona?** Revise seção [🔌 Conexão](#-conexão-ao-banco-de-dados)
+5. **Ainda não resolve?** Abra [Issue](../../issues) com sua dúvida
 
 ---
 
 ## 📜 Licença
 
-Este projeto está sob a licença MIT. Veja [LICENSE](LICENSE) para mais detalhes.
+MIT License — Use livremente, dê crédito se fizer sentido.
 
 ---
 
-## ⭐ Apoie Este Projeto
+## 📚 Resumo Rápido
 
-Se este projeto te ajudou:
-
-- ⭐ Dê uma estrela no GitHub
-- 🔄 Compartilhe com amigos
-- 💬 Dê feedback e sugestões
-- 🤝 Contribua com novos exercícios
-
----
-
-## 🎓 Recursos Extras
-
-### Quando Ficar Confuso
-1. Veja exemplos similares em `queries_uteis/`
-2. Leia a teoria no `ROADMAP_COMPLETO.md`
-3. Procure por "DICA:" nos exercícios
-
-### Quando Quiser Aprender Mais
-1. Procure por "BONUS:" nos desafios
-2. Crie suas próprias queries sobre os dados
-3. Simule problemas reais que quer resolver
-
-### Quando Estiver Preso
-```
-1. Pause por 15 minutos
-2. Veja uma query similiar resolvida
-3. Tente novamente
-4. Se ainda tiver dúvida, pule e volte depois
-```
-
----
-
-## 💡 Dicas de Ouro
-
-### ✨ Para Aprender Mais Rápido
-- Escreva comentários explicativos em CADA query
-- Leia o código dos outros (soluções)
-- Tente reescrever queries de outras formas
-
-### ✨ Para Não Perder Motivation
-- Complete um desafio por dia = ✅
-- Veja seu progresso crescer no `progresso.md`
-- Quando resolver um desafio duro, celebre!
-
-### ✨ Para Praticar 30 Min/Dia
-```
-15 min: 1 exercício (tentar + solução)
-10 min: 1 desafio (tentar)
-5 min:  Atualizar progresso.md
-```
-
----
-
-## 📞 Contato e Comunidade
-
-- 💬 **Dúvidas?** Abra uma [Issue](../../issues) com tag `question`
-- 🐛 **Bugs?** Abra uma [Issue](../../issues) com tag `bug`
-- 💡 **Sugestões?** Abra uma [Issue](../../issues) com tag `enhancement`
+| Quer | Faça |
+|------|------|
+| Começar AGORA | [⚡ Conectar ao Banco](#-começar-agora-3-passos) |
+| Entender as fases | [📊 Seu Plano](#-seu-plano-de-aprendizado) |
+| Conectar em 5 min | [🔌 Conexão](#-conexão-ao-banco-de-dados) |
+| Estudar hoje | [🚀 Como Estudar](#-como-estudar) |
+| Saber se está pronto | [✅ Checklist](#-checklist-avançar-para-próxima-fase) |
+| Ver dados | [📊 Dados](#-dados-do-projeto) |
+| Ajuda | [📞 Ajuda](#-precisa-de-ajuda) |
 
 ---
 
 <div align="center">
 
-**Feito com ❤️ para a comunidade brasileira de dados**
+**Feito com ❤️ para aprender SQL com alegria**
 
-Se este projeto te ajudou, considere dar uma ⭐
+Não é preciso ser gênio, é preciso ser **consistente**.
 
-[⬆ Voltar ao topo](#-aprenda-sql-postgres)
+30 minutos por dia × 3 meses = **SQL fluente** 🚀
+
+Se gostou, dê uma ⭐ no GitHub!
+
+[⬆ Voltar ao Topo](#-aprenda-sql-postgresql--do-zero-ao-sênior)
 
 </div>
-
----
-
-## 🚀 Próximos Passos
-
-1. **Hoje:** Começar Fase 1, Exercício 1
-2. **Semana 1:** Terminar Fase 1
-3. **Semana 2:** Fazer Fase 2
-4. **Mês 1:** Fases 1-2 completas
-5. **Mês 6:** Fases 1-8 (nível intermediário)
-6. **Ano 1:** Sênior em PostgreSQL 🎉
-
----
-
-## 📞 Dúvidas?
-
-Se ficar preso:
-1. Procure a resposta nos arquivos
-2. Releia o enunciado do exercício
-3. Veja exemplos similares
-4. Tente uma abordagem diferente
-
-**Você consegue!** 💪
-
----
-
-Bom estudo! 🚀📚
-
----
-
-## 🌐 Acesso Público ao Banco (Neon)
-
-Para praticar sem instalar nada, conecte ao banco público READ-ONLY:
-
-- Host: ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech
-- Database: neondb
-- User: aluno_readonly
-- Password: AprendaSQL2025!
-- Port: 5432
-- SSL: required
-
-### psql (terminal)
-```bash
-psql "postgresql://aluno_readonly:AprendaSQL2025!@ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require"
-```
-
-### DBeaver / Postico / TablePlus
-- Protocol: PostgreSQL
-- SSL: require
-- Credenciais conforme acima
-
-### Ferramentas recomendadas (GUI)
-
-As opções abaixo permitem conectar, navegar pelas tabelas e executar queries de forma visual. Use as credenciais da seção acima (SSL obrigatório).
-
-#### Postico 2 (macOS)
-- Instale via App Store ou site oficial.
-- Abra o app → New Favorite → tipo "PostgreSQL".
-- Preencha: Host, Database, User, Password, SSL: "require".
-- Clique em "Connect" e rode: `SELECT COUNT(*) FROM users;`.
-
-#### DBeaver (Windows, macOS, Linux)
-- Baixe em dbeaver.io e instale.
-- File → New → Database → PostgreSQL.
-- Host, Database, User, Password; em SSL marque "Use SSL" e modo "require".
-- Teste a conexão e finalize.
-
-#### TablePlus (macOS, Windows)
-- Instale via tableplus.com.
-- New Connection → PostgreSQL → informe Host, Database, User, Password.
-- Em SSL, marque "Require SSL" e conecte.
-
-#### Beekeeper Studio (Linux, Windows, macOS)
-- Instale via beekeeperstudio.io ou gerenciador de pacotes.
-- New Connection → PostgreSQL → informe credenciais e SSL: require.
-
-#### pgAdmin 4
-- Instale via site oficial ou gerenciador de pacotes.
-- Create Server → Host, Database (opcional), User, Password.
-- Em SSL, defina "Require".
-
-#### DataGrip (JetBrains)
-- Instale via JetBrains Toolbox.
-- Add Data Source → PostgreSQL → informe Host/DB/User/Password.
-- Em SSL, selecione "require".
-
-#### VS Code
-- Instale uma extensão de SQL, por exemplo: "SQLTools" + "SQLTools PostgreSQL Driver" ou "PostgreSQL".
-- Crie uma conexão usando a URI abaixo ou preenchendo os campos.
-- Abra arquivos `.sql` e execute suas queries diretamente.
-
-### Strings de conexão e variáveis de ambiente
-
-#### URI (copie e cole)
-```
-postgresql://aluno_readonly:AprendaSQL2025!@ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require
-```
-
-#### Via variáveis de ambiente (psql)
-```bash
-export PGHOST=ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech
-export PGDATABASE=neondb
-export PGUSER=aluno_readonly
-export PGPASSWORD=AprendaSQL2025!
-export PGSSLMODE=require
-psql
-```
-
-#### Testes rápidos após conectar (psql)
-```sql
--- listar tabelas
-\dt
--- contar usuários
-SELECT COUNT(*) FROM users;
--- exemplo nas transações
-SELECT COUNT(*) FROM transactions;
-```
-
----
-
-## Dataset grande (10k+)
-
-Scripts prontos para resetar, popular com dados limpos (BI) e gerar views:
-
-```bash
-# 1) Resetar tudo
-psql "postgresql://neondb_owner:SUA_SENHA@ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require" \
-        -v ON_ERROR_STOP=1 -f scripts/reset_public_db.sql
-
-# 2) Seed limpo (10k usuários, ~80-100k transações)
-psql "postgresql://neondb_owner:SUA_SENHA@ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require" \
-        -v ON_ERROR_STOP=1 -v tpu=8 -f scripts/seed_portfolio_10k.sql
-
-# 3) Views para BI
-psql "postgresql://neondb_owner:SUA_SENHA@ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require" \
-        -v ON_ERROR_STOP=1 -f scripts/bi_views.sql
-```
-
-Parâmetros úteis:
-- `tpu`: transações por usuário (ex.: `-v tpu=6` para reduzir, `-v tpu=10` para ~100k tx)
-
-Dataset sujo (para ETL/limpeza):
-```bash
-psql "postgresql://neondb_owner:SUA_SENHA@ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require" \
-        -v ON_ERROR_STOP=1 -v tpu=6 -f scripts/seed_bronze_10k_dirty.sql
-```
-
-Notas:
-- Todos os scripts são idempotentes (usam ON CONFLICT e checagens) e podem ser reexecutados.
-- O usuário aluno_readonly permanece read-only; apenas o owner deve rodar os seeds.
-
-### Tabelas disponíveis
-- `users` (10 registros)
-- `transactions` (10)
-- `posts` (10)
-- `comments` (11)
-- `fraud_data` (6)
-- `user_accounts` (10)
-
-Este usuário é somente leitura: não permite INSERT/UPDATE/DELETE/TRUNCATE.
-
-Se algo sair do ar, recriamos os dados via `Banco.sql`.
-
-### Dataset ampliado (público)
-Em 26/12/2025 ampliamos o dataset do banco público com ~100 registros adicionais para cada entidade principal.
-
-- users: 110
-- transactions: 110
-- posts: 110
-- comments: 111
-- fraud_data: 56
-- user_accounts: 110
-
-Como foi gerado:
-- Script idempotente: `scripts/seed_extra_100.sql`
-- Usa `generate_series`, arrays de cidades/estados e guardas `ON CONFLICT`/`NOT EXISTS`
-- Pode ser reexecutado sem duplicar dados
-
-Para contribuir com mais dados, abra uma Issue ou PR sugerindo novos seeds.
