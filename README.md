@@ -320,6 +320,12 @@ SELECT COUNT(*) FROM users;
 ├── fase_04_agregacoes/            GROUP BY, HAVING, Agregações
 ├── fase_05_ctes_subconsultas_windows/  CTEs, Window Functions
 ├── fase_06_advanced_ctes_windows/ CTEs Recursivas, LATERAL
+├── fase_07_performance_otimizacao/ EXPLAIN ANALYZE, tuning
+├── fase_08_indices_avancados/      Índices BTREE/HASH/GiST/GIN/BRIN
+├── fase_09_transactions_locks/     ACID, isolamento, deadlocks
+├── fase_10_procedures_triggers/    PL/pgSQL, funções, triggers
+├── fase_11_analise_fraudes/        Scoring, anomalias, Z-score
+├── fase_12_big_data_particionamento/ Particionamento, retenção
 │
 └── fase_extra_etl/                ETL na Prática (Bronze→Silver→Gold)
 
