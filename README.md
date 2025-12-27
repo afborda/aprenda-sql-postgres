@@ -59,7 +59,7 @@ Deve retornar: **10,000**
 
 ## 📊 Seu Plano de Aprendizado
 
-### 8 Fases Completas (Básico → Sênior)
+### 12 Fases Completas (Básico → Especialista)
 
 | # | Fase | O Que Você Aprenderá | Tempo | Dificuldade |
 |---|------|---|---|---|
@@ -71,8 +71,12 @@ Deve retornar: **10,000**
 | 6 | **Avançado** | Recursão, LATERAL, Cohort Analysis | 3 semanas | ⭐⭐⭐ |
 | 7 | **Performance** | EXPLAIN ANALYZE, Otimização de Queries | 2-3 semanas | ⭐⭐⭐ |
 | 8 | **Índices** | BTREE, HASH, GiST, Estratégias | 2-3 semanas | ⭐⭐⭐ |
+| 9 | **Transactions & Locks** | ACID, Isolation Levels, Deadlocks, Locks explícitos | 2-3 semanas | ⭐⭐⭐ |
+| 10 | **Procedures & Triggers** | PL/pgSQL, funções, triggers BEFORE/AFTER | 2-3 semanas | ⭐⭐⭐ |
+| 11 | **Análise de Fraudes** | Z-score, padrões suspeitos, scoring em tempo real | 3-4 semanas | ⭐⭐⭐⭐ |
+| 12 | **Big Data & Particionamento** | Range/List/Hash partitioning, automação, retenção | 3-4 semanas | ⭐⭐⭐⭐ |
 
-**Tempo total: ~4-5 meses (30 min/dia)**
+**Tempo total: ~5-6 meses (30 min/dia)**
 
 ### Bônus: Fase Extra — ETL na Prática
 - Bronze → Silver → Gold pipeline
@@ -153,6 +157,59 @@ ON transactions(user_id, created_at DESC);
 
 CREATE INDEX idx_transactions_fraud 
 ON transactions(user_id) WHERE fraud_score > 0.8;
+```
+
+### Após Fase 9 ⭐⭐⭐
+```sql
+-- Transação segura com isolamento SERIALIZABLE
+BEGIN;
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+COMMIT;
+```
+
+### Após Fase 10 ⭐⭐⭐
+```sql
+-- Trigger de auditoria simples
+CREATE OR REPLACE FUNCTION audit_transacoes()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO audit_log(table_name, ref_id, operacao, payload)
+  VALUES (TG_TABLE_NAME, NEW.id, TG_OP, row_to_json(NEW));
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER tg_audit_transacoes
+AFTER INSERT OR UPDATE ON transactions
+FOR EACH ROW EXECUTE FUNCTION audit_transacoes();
+```
+
+### Após Fase 11 ⭐⭐⭐⭐
+```sql
+-- Z-score para detectar anomalias
+WITH stats AS (
+  SELECT AVG(amount) avg_amt, STDDEV(amount) std_amt FROM transactions
+)
+SELECT t.id, t.amount,
+       (t.amount - s.avg_amt) / NULLIF(s.std_amt, 0) AS z_score
+FROM transactions t CROSS JOIN stats s
+WHERE (t.amount - s.avg_amt) / NULLIF(s.std_amt, 0) > 3;
+```
+
+### Após Fase 12 ⭐⭐⭐⭐
+```sql
+-- Particionamento por mês
+CREATE TABLE transactions_partitioned (
+  id BIGSERIAL PRIMARY KEY,
+  user_id INT,
+  amount NUMERIC,
+  created_at TIMESTAMPTZ
+) PARTITION BY RANGE (created_at);
+
+CREATE TABLE trans_2024_01 PARTITION OF transactions_partitioned
+FOR VALUES FROM ('2024-01-01') TO ('2024-02-01');
 ```
 
 ---
@@ -376,7 +433,13 @@ Todos gerados com **Faker pt_BR** para máxima autenticidade.
 | 5-6 | Fase 3 | Faço JOINs sem medo 💪 |
 | 7-8 | Fase 4 | Agrego dados para gráficos 📊 |
 | 9-11 | Fase 5 | Window functions me fazem feliz 😊 |
-| 12-14 | Fase 6 | Sou desenvolvedor SQL! 🚀 |
+| 12-14 | Fase 6 | Domino CTEs e recursion 🚀 |
+| 15-16 | Fase 7 | Otimizo queries com EXPLAIN ⚡ |
+| 17-18 | Fase 8 | Desenho índices estratégicos 🧭 |
+| 19-20 | Fase 9 | Domino transações e locks 🔒 |
+| 21-22 | Fase 10 | Automatizo regras com triggers 🛠️ |
+| 23-25 | Fase 11 | Detecto fraudes em tempo real 🕵️ |
+| 26-28 | Fase 12 | Particiono dados em escala 🌐 |
 
 ---
 
