@@ -1,5 +1,7 @@
 # Fase 2: Consultas Intermediárias 📊
 
+![Fase 2 - Intermediário](../../assets/img.png)
+
 ## Visão Geral
 
 A segunda fase aprofunda suas habilidades SQL com **técnicas de busca avançada e manipulação de dados**. Você aprenderá Pattern Matching, operadores lógicos, funções de string e funções de data.

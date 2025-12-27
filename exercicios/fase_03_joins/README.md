@@ -1,5 +1,7 @@
 # 🎯 Fase 3: Relacionamentos e JOINs
 
+![Fase 3 - JOINs](../../assets/img.png)
+
 ## 📚 O que você aprenderá nesta fase
 
 - ✅ INNER JOIN (combinar tabelas relacionadas)

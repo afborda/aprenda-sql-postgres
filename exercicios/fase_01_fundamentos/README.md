@@ -1,5 +1,7 @@
 # 🎯 Fase 1: Fundamentos SQL
 
+![Fase 1 - Fundamentos](../../assets/img.png)
+
 ## 📚 O que você aprenderá nesta fase
 
 - ✅ SELECT básico (colunas, *)
