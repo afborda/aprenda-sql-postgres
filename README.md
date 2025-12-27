@@ -44,6 +44,7 @@
         - [URI](#uri-copie-e-cole)
         - [Via variáveis de ambiente (psql)](#via-variáveis-de-ambiente-psql)
         - [Testes rápidos após conectar (psql)](#testes-rápidos-após-conectar-psql)
+        - [Dataset grande (10k+)](#dataset-grande-10k)
 
 ---
 
@@ -547,6 +548,39 @@ SELECT COUNT(*) FROM users;
 -- exemplo nas transações
 SELECT COUNT(*) FROM transactions;
 ```
+
+---
+
+## Dataset grande (10k+)
+
+Scripts prontos para resetar, popular com dados limpos (BI) e gerar views:
+
+```bash
+# 1) Resetar tudo
+psql "postgresql://neondb_owner:SUA_SENHA@ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require" \
+        -v ON_ERROR_STOP=1 -f scripts/reset_public_db.sql
+
+# 2) Seed limpo (10k usuários, ~80-100k transações)
+psql "postgresql://neondb_owner:SUA_SENHA@ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require" \
+        -v ON_ERROR_STOP=1 -v tpu=8 -f scripts/seed_portfolio_10k.sql
+
+# 3) Views para BI
+psql "postgresql://neondb_owner:SUA_SENHA@ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require" \
+        -v ON_ERROR_STOP=1 -f scripts/bi_views.sql
+```
+
+Parâmetros úteis:
+- `tpu`: transações por usuário (ex.: `-v tpu=6` para reduzir, `-v tpu=10` para ~100k tx)
+
+Dataset sujo (para ETL/limpeza):
+```bash
+psql "postgresql://neondb_owner:SUA_SENHA@ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require" \
+        -v ON_ERROR_STOP=1 -v tpu=6 -f scripts/seed_bronze_10k_dirty.sql
+```
+
+Notas:
+- Todos os scripts são idempotentes (usam ON CONFLICT e checagens) e podem ser reexecutados.
+- O usuário aluno_readonly permanece read-only; apenas o owner deve rodar os seeds.
 
 ### Tabelas disponíveis
 - `users` (10 registros)
