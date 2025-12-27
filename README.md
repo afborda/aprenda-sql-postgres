@@ -59,7 +59,7 @@ Deve retornar: **10,000**
 
 ## 📊 Seu Plano de Aprendizado
 
-### 6 Fases Completas (Básico → Intermediário+)
+### 8 Fases Completas (Básico → Sênior)
 
 | # | Fase | O Que Você Aprenderá | Tempo | Dificuldade |
 |---|------|---|---|---|
@@ -69,8 +69,10 @@ Deve retornar: **10,000**
 | 4 | **Agregações** | GROUP BY, HAVING, SUM/AVG/COUNT | 2 semanas | ⭐⭐ |
 | 5 | **CTEs e Windows** | WITH, Window Functions, Ranking | 3 semanas | ⭐⭐⭐ |
 | 6 | **Avançado** | Recursão, LATERAL, Cohort Analysis | 3 semanas | ⭐⭐⭐ |
+| 7 | **Performance** | EXPLAIN ANALYZE, Otimização de Queries | 2-3 semanas | ⭐⭐⭐ |
+| 8 | **Índices** | BTREE, HASH, GiST, Estratégias | 2-3 semanas | ⭐⭐⭐ |
 
-**Tempo total: ~3 meses (30 min/dia)**
+**Tempo total: ~4-5 meses (30 min/dia)**
 
 ### Bônus: Fase Extra — ETL na Prática
 - Bronze → Silver → Gold pipeline
@@ -121,10 +123,37 @@ FROM user_totals
 ```
 
 ### Após Fase 6 ⭐⭐⭐
-- CTEs recursivas
-- Análise de coortes
-- Médias móveis
-- Detecção de outliers com Z-score
+```sql
+-- CTEs recursivas, LATERAL joins, análise de coortes
+WITH RECURSIVE mes_range AS (
+  SELECT '2024-01-01'::DATE as mes
+  UNION ALL
+  SELECT mes + INTERVAL '1 month'
+  FROM mes_range WHERE mes < '2024-12-01'
+)
+SELECT * FROM mes_range
+```
+
+### Após Fase 7 ⭐⭐⭐
+```sql
+-- Otimizar queries com EXPLAIN ANALYZE
+EXPLAIN ANALYZE
+SELECT u.state, COUNT(*) as transacoes
+FROM users u
+JOIN transactions t ON u.id = t.user_id
+WHERE t.created_at > CURRENT_DATE - INTERVAL '30 days'
+GROUP BY u.state
+```
+
+### Após Fase 8 ⭐⭐⭐
+```sql
+-- Criar índices estratégicos
+CREATE INDEX idx_transactions_user_created 
+ON transactions(user_id, created_at DESC);
+
+CREATE INDEX idx_transactions_fraud 
+ON transactions(user_id) WHERE fraud_score > 0.8;
+```
 
 ---
 
