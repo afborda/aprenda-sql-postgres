@@ -445,6 +445,73 @@ psql "postgresql://aluno_readonly:AprendaSQL2025!@ep-odd-dream-ah5ij0pt-pooler.c
 - SSL: require
 - Credenciais conforme acima
 
+### Ferramentas recomendadas (GUI)
+
+As opções abaixo permitem conectar, navegar pelas tabelas e executar queries de forma visual. Use as credenciais da seção acima (SSL obrigatório).
+
+#### Postico 2 (macOS)
+- Instale via App Store ou site oficial.
+- Abra o app → New Favorite → tipo "PostgreSQL".
+- Preencha: Host, Database, User, Password, SSL: "require".
+- Clique em "Connect" e rode: `SELECT COUNT(*) FROM users;`.
+
+#### DBeaver (Windows, macOS, Linux)
+- Baixe em dbeaver.io e instale.
+- File → New → Database → PostgreSQL.
+- Host, Database, User, Password; em SSL marque "Use SSL" e modo "require".
+- Teste a conexão e finalize.
+
+#### TablePlus (macOS, Windows)
+- Instale via tableplus.com.
+- New Connection → PostgreSQL → informe Host, Database, User, Password.
+- Em SSL, marque "Require SSL" e conecte.
+
+#### Beekeeper Studio (Linux, Windows, macOS)
+- Instale via beekeeperstudio.io ou gerenciador de pacotes.
+- New Connection → PostgreSQL → informe credenciais e SSL: require.
+
+#### pgAdmin 4
+- Instale via site oficial ou gerenciador de pacotes.
+- Create Server → Host, Database (opcional), User, Password.
+- Em SSL, defina "Require".
+
+#### DataGrip (JetBrains)
+- Instale via JetBrains Toolbox.
+- Add Data Source → PostgreSQL → informe Host/DB/User/Password.
+- Em SSL, selecione "require".
+
+#### VS Code
+- Instale uma extensão de SQL, por exemplo: "SQLTools" + "SQLTools PostgreSQL Driver" ou "PostgreSQL".
+- Crie uma conexão usando a URI abaixo ou preenchendo os campos.
+- Abra arquivos `.sql` e execute suas queries diretamente.
+
+### Strings de conexão e variáveis de ambiente
+
+#### URI (copie e cole)
+```
+postgresql://aluno_readonly:AprendaSQL2025!@ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require
+```
+
+#### Via variáveis de ambiente (psql)
+```bash
+export PGHOST=ep-odd-dream-ah5ij0pt-pooler.c-3.us-east-1.aws.neon.tech
+export PGDATABASE=neondb
+export PGUSER=aluno_readonly
+export PGPASSWORD=AprendaSQL2025!
+export PGSSLMODE=require
+psql
+```
+
+#### Testes rápidos após conectar (psql)
+```sql
+-- listar tabelas
+\dt
+-- contar usuários
+SELECT COUNT(*) FROM users;
+-- exemplo nas transações
+SELECT COUNT(*) FROM transactions;
+```
+
 ### Tabelas disponíveis
 - `users` (10 registros)
 - `transactions` (10)
